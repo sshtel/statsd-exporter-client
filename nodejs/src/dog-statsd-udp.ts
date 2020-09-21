@@ -39,6 +39,19 @@ export class UdpDogStatsD {
       });
   }
 
+  sendCount = (msg: StatsdMetricMsg) => {
+    const tagStr = this.getTagStr(msg);
+    const msgStr = Buffer.from(`${msg.metricName}:${msg.value}|c|${tagStr}`, 'utf-8');
+    this.logger.debug(`[DEBUG] - ${this.host}:${this.port} - ${msgStr.toString()}`);
+    this.client.send(msgStr, 0, msgStr.length, this.port, this.host,
+      (err: Error) => {
+        if (err) {
+          this.logger.error('[ERR] - could not send metric data to statsd-exporter');
+          this.logger.error(err);
+        }
+      });
+  }
+
   close = () => {
     this.client.close();
   }
