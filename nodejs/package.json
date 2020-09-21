@@ -1,0 +1,37 @@
+{
+  "name": "statsd-exporter-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sshtel/statsd-exporter-client.git"
+  },
+  "keywords": [
+    "prometheus",
+    "statsd-exporter"
+  ],
+  "author": "Steve Song <sshtel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sshtel/statsd-exporter-client/issues"
+  },
+  "homepage": "https://github.com/sshtel/statsd-exporter-client#readme",
+  "devDependencies": {
+    "@types/node": "^14.11.1",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-istanbul": "^1.1.2",
+    "gulp-jasmine": "^4.0.0",
+    "gulp-tslint": "^8.1.4",
+    "jasmine": "^3.6.1",
+    "jasmine-spec-reporter": "^4.2.1",
+    "remap-istanbul": "^0.9.6",
+    "tslint": "^5.20.1",
+    "typescript": "^4.0.3"
+  }
+}
