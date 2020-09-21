@@ -1,5 +1,5 @@
-// const statsd = require('statsd-exporter-client')
-const statsd = require('../dist')
+const statsd = require('statsd-exporter-client')
+// const statsd = require('../dist')
 
 const statsdObj = new statsd.UdpDogStatsD({ host: 'localhost', port: 9125 })
 
