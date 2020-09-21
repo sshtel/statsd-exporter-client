@@ -3,24 +3,25 @@ const statsd = require('statsd-exporter-client')
 
 const statsdObj = new statsd.UdpDogStatsD({ host: 'localhost', port: 9125 })
 
-statsdObj.sendGauge({
-  metricName: 'mymetricgauge',
-  value: 111,
-  tags: {
-    tag1: '1',
-    tag2: 'b'
-  }
-})
 
+setInterval(async () => {
 
-statsdObj.sendCount({
-  metricName: 'mymetriccount',
-  value: 222,
-  tags: {
-    tag1: '1',
-    tag2: 'b'
-  }
-})
+  statsdObj.sendGauge({
+    metricName: 'my_metric_gauge',
+    value: Math.random() * 100,
+    tags: {
+      tag1: '1',
+      tag2: 'b'
+    }
+  })
 
+  statsdObj.sendCountInc({
+    metricName: 'my_metric_count',
+    value: 10,
+    tags: {
+      tag1: '1',
+      tag2: 'b'
+    }
+  })
 
-statsdObj.close()
+}, 1000)
