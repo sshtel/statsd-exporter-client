@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "statsd-exporter-client": "^1.0.0"
+    "statsd-exporter-client": "1.0.1"
   }
 }

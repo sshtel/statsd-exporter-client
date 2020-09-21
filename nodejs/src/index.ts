@@ -1,2 +1,2 @@
-export { closeUdpDogStatsD, sendUdpGaugeDogStatsD } from './dog-statsd-udp';
+export { UdpDogStatsD } from './dog-statsd-udp';
 export { StatsdMetricMsg } from './interface';

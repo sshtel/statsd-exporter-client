@@ -1,6 +1,9 @@
-const statsd = require('statsd-exporter-client')
+// const statsd = require('statsd-exporter-client')
+const statsd = require('../dist')
 
-statsd.sendUdpGaugeDogStatsD({
+const statsdObj = new statsd.UdpDogStatsD({ host: 'localhost', port: 9125 })
+
+statsdObj.sendGauge({
   metricName: 'metric',
   value: 1,
   tags: {
@@ -9,4 +12,4 @@ statsd.sendUdpGaugeDogStatsD({
   }
 })
 
-statsd.closeUdpDogStatsD()
+statsdObj.close()
