@@ -1,4 +1,4 @@
-const statsd = require('../dist/index')
+const statsd = require('statsd-exporter-client')
 
 statsd.sendUdpGaugeDogStatsD({
   metricName: 'metric',
