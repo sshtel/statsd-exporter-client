@@ -1,14 +1,12 @@
 import * as dgram from 'dgram';
+import * as xinston from 'xinston';
+import { StatsdMetricMsg } from './interface';
+
+const logger = xinston.Logger.get();
 
 const STATSD_EXPORTER_PORT = parseInt(process.env.STATSD_EXPORTER_PORT || '9125', 10);
 const STATSD_EXPORTER_HOST = process.env.STATSD_EXPORTER_HOST || 'localhost';
 const client = dgram.createSocket('udp4');
-
-export interface StatsdMetricMsg {
-  metricName: string;
-  value: number;
-  tags: any;
-}
 
 const getTagStr = (msg: StatsdMetricMsg) => {
   const tags: string[] = [];
@@ -20,14 +18,19 @@ const getTagStr = (msg: StatsdMetricMsg) => {
   return '#' + tags.join(',');
 };
 
-export const sendGaugeDogStatsD = (msg: StatsdMetricMsg) => {
+export const sendUdpGaugeDogStatsD = (msg: StatsdMetricMsg) => {
   const tagStr = getTagStr(msg);
   const msgStr = Buffer.from(`${msg.metricName}:${msg.value}|g|${tagStr}`, 'utf-8');
-  if (process.env.STATSD_EXPORTER_METRICS_DEBUG) console.log(`[DEBUG] - statsd metric: ${msgStr.toString()}`);
-  client.send(msgStr, 0, msgStr.length, STATSD_EXPORTER_PORT, STATSD_EXPORTER_HOST, (err, bytes) => {
-    if (err) {
-      console.error('[ERR] - could not send metric data to statsd-exporter');
-      console.error(err);
-    }
-  });
+  logger.debug(`[DEBUG] - statsd metric: ${msgStr.toString()}`);
+  client.send(msgStr, 0, msgStr.length, msg.port || STATSD_EXPORTER_PORT, msg.host || STATSD_EXPORTER_HOST,
+    (err: Error) => {
+      if (err) {
+        logger.error('[ERR] - could not send metric data to statsd-exporter');
+        logger.error(err);
+      }
+    });
+};
+
+export const closeUdpDogStatsD = () => {
+  client.close();
 };

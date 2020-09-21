@@ -1,0 +1,15 @@
+version: "3"
+services:
+  prom:
+    image: prom/prometheus
+    environment:
+      - ENVPOINT_STATSD_EXPORTER=statsd-exporter-sd.local.new
+    ports:
+      - 9090:9090
+
+  statsd-exporter:
+    image: prom/statsd-exporter
+    ports:
+      - 9102:9102
+      - 9125:9125/tcp
+      - 9125:9125/udp
